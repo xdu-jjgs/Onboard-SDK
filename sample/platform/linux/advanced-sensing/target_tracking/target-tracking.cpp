@@ -28,14 +28,7 @@ uint8_t* recv_buffer;
 MopPipeline::DataPackType writePack = {(uint8_t*)send_buffer, SEND_BUFFER_SIZE};
 MopPipeline::DataPackType readPack = {(uint8_t*)recv_buffer, RECV_BUFFER_SIZE};
 
-/*
 cv::VideoCapture cap("/home/zxj/Desktop/input.mp4");
-for (int i = 0; i < 320; i++) {
-    cv::Mat mat;
-    cap.read(mat);
-}
-*/
-
 void show_rgb(CameraRGBImage img, void*) {
   if (!mtx.try_lock()) return;
 
@@ -201,6 +194,13 @@ int main(int argc, char** argv) {
   }
   const char *acm_dev = linuxEnvironment.getEnvironment()->getDeviceAcm().c_str();
   vehicle->advancedSensing->setAcmDevicePath(acm_dev);
+
+  /*
+  for (int i = 0; i < 320; i++) {
+    cv::Mat mat;
+    cap.read(mat);
+  }
+  */
 
   if ((fd_cpp2py = open("/home/zxj/Desktop/cpp2py", O_WRONLY)) != 0) {
     DERROR("cpp2py fifo: failed to open");
